@@ -1,0 +1,27 @@
+Python version: 3.7.3
+Django version: 3.0.3
+Pillow version: 7.0.0 might not use????
+
+
+Things that currently work:
+View all posts
+Filter posts by poster
+Create new post
+Make new user
+User authentication and pfp upload
+Home button
+Likes
+Retweets
+
+Things that need to be implemented:
+
+Actual replies to posts (updating of html for specificView)
+  https://stackabuse.com/recursive-model-relationships-in-django/
+  REPLIES WORK??????????? REFORMAT POST VIEWS AND CHANGE SPECIFIC VIEW TEMPLATES TO DISPLAY REPLIES CORRECTLY??????
+  REPLYING_TO OF POST IS NONE, REPLYING_TO OF REPLY IS THE POST/REPLY IT IS REPLYING TO (POST OBJECT/MODEL)
+
+Link things to places (signin should have link to sign up, etc.)
+Lots of styling to do (pfp, lining up Reply Retweet and Like, etc.)
+Add static images now that pfps are not static
+Followers (bio page?)
+Make things that require login redirect back to the "next" page in url (sent via GET)

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>New Post</title>
+</head>
+<body>
+  <style>
+    body {
+      text-align: center;
+      background-color: lightblue;
+    }
+    div.post {
+      border: 1px solid black;
+      width: 70%;
+      text-align: left;
+      background-color: white;
+      margin: auto;
+    }
+  </style>
+  <p>Hello @{{ user.user.username }}, type your reply here:</p>
+  <form action="{% url 'posts:makeReply' handle post.id %}" method="post" id="form">
+    {% csrf_token %}
+    <textarea style="width:33vw; height:40vh; resize:none" name="postContent" form="form"></textarea><br/>
+    <input type="submit">
+  </form>
+  <p>Replying to:</p>
+  <div class="post">
+    <p class="postContent">{{ post.poster }} @{{ post.poster.poster_handle }} {{ post.pub_date }}</p>
+    <p class="postContent">{{ post.post_content|safe }}</p>
+  </div>
+</body>
+</html>

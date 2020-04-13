@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>New Post</title>
+</head>
+<body style="text-align:center; background-color:lightblue">
+  <p>Hello @{{ handle }}, create a new post:</p>
+  <form action="{% url 'posts:createNewPost' handle %}" method="post" id="form">
+    {% csrf_token %}
+    <textarea style="width:33vw; height:40vh; resize:none" name="postContent" form="form"></textarea><br/>
+    <input type="submit">
+  </form>
+</body>
+</html>

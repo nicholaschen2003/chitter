@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ type }}</title>
+</head>
+<body>
+  <style>
+    body {
+      background-color: lightblue;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      width: 200px;
+      margin: auto;
+      text-align: center;
+      border: 1px solid black;
+    }
+    input.input {
+      width: 90%;
+    }
+    p {
+      text-align: center;
+    }
+  </style>
+  <h1>{{ type }}</h1>
+  <form action="{% url 'posts:userAuthentication' %}" method = "post">
+    {% csrf_token %}
+    {{ logInForm }}
+    <input type="submit" value="{{ type }}">
+  </form>
+  <p>Login failed, please try again.</p>
+</body>
+</html>
