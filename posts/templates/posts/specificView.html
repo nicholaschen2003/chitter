@@ -48,7 +48,7 @@
   }
   img.indent {
     width: 100%;
-    height: 20%;
+    height: 15%;
   }
   td.text {
     width: 95%;
@@ -88,18 +88,18 @@
           {% endif %}
           <p class="postContent">{{ p.post_content|safe }}</p>
 
-          <form action="{% url 'posts:reply' handle post.id %}" method="post">
+          <form action="{% url 'posts:reply' handle post.id %}" method="post" style="display: inline">
             {% csrf_token %}
             <input type="submit" value="Reply">
             <label for="reply">{{ p.replies }}</label>
           </form>
 
-          <form action="{% url 'posts:retweet' handle post.id %}" method="post">
+          <form action="{% url 'posts:retweet' handle post.id %}" method="post" style="display: inline">
             <input type="submit" value="Retweet">
             <label for="retweet">{{ p.retweets }}</label>
           </form>
 
-          <form action="{% url 'posts:like' handle post.id 'specificView' %}" method="post">
+          <form action="{% url 'posts:like' handle post.id 'specificView' %}" method="post" style="display: inline">
             {% csrf_token %}
             {% if post.id in liked_posts and user.user.username == request.user.username %}
               <input type="submit" value="Like" style="color: lightcoral">
