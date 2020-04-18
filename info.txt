@@ -21,5 +21,4 @@ Lots of styling to do (pfp, lining up Reply Retweet and Like, etc.)
 Add static images now that pfps are not static
 Followers (bio page?)
 Make things that require login redirect back to the "next" page in url (sent via GET)
-Style replies with indents or vertical line things
 Add specificView links to replies
