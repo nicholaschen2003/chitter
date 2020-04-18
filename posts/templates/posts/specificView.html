@@ -29,19 +29,27 @@
   }
   table.container {
     width: 100%;
+    border-spacing: 0;
   }
   table.post {
     width: 100%;
     border: 1px solid black;
     float: right;
+    border-spacing: 0;
+  }
+  td.post {
+    height: inherit;
+    padding: 0;
   }
   td.pfp {
-    width: 5%;
+    width: 3.5%;
     text-align: center;
     vertical-align: top;
   }
   td.indent {
+    height: inherit;
     width: 5%;
+    padding: 0;
   }
   img.pic {
     width: 100%;
@@ -49,9 +57,10 @@
   img.indent {
     width: 100%;
     height: 15%;
+    display: block;
   }
   td.text {
-    width: 95%;
+    width: 96.5%;
   }
   p.postContent {
     width: 100%;
