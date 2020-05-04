@@ -18,7 +18,6 @@ Things that need to be implemented:
 
 Link things to places (signin should have link to sign up, etc.)
 Lots of styling to do (pfp, lining up Reply Retweet and Like, etc.)
-Add static images now that pfps are not static
 Followers (bio page?)
 Make things that require login redirect back to the "next" page in url (sent via GET)
 Add specificView links to replies

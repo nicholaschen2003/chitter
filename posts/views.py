@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -16,10 +16,18 @@ def signin(request):
     """
         Login page.
     """
+    if request.method == 'GET' and 'next' in request.GET:
+        next = request.GET['next']
+        next = next.replace('/','-')
+        print("hello",next)
+    else:
+        next = ' '
+
     context = {
         'type': 'Login',
         'logInForm': LogInForm,
         'signUpForm': SignUpForm,
+        'next': next,
     }
     return render(request, 'posts/landingPage.html', context)
 
@@ -33,14 +41,18 @@ def failedSignin(request):
     }
     return render(request, 'posts/failedSignin.html', context)
 
-def userAuthentication(request):
+def userAuthentication(request, next):
     """
         Authenticate the user.
     """
     user = authenticate(request, username=request.POST['handle'], password=request.POST['password'])
     if user is not None:
         login(request, user)
-        return HttpResponseRedirect(reverse('posts:posterView', args=[request.POST['handle']]))
+        if next != '':
+            next = next.replace('-', '/')
+            return redirect(next)
+        else:
+            return HttpResponseRedirect(reverse('posts:posterView', args=[request.POST['handle']]))
     else:
         return HttpResponseRedirect(reverse('posts:failedSignin'))
 
@@ -52,6 +64,7 @@ def signup(request):
         'type': 'Sign Up',
         'logInForm': LogInForm,
         'signUpForm': SignUpForm,
+        'next': ' ',
     }
     return render(request, 'posts/landingPage.html', context)
 

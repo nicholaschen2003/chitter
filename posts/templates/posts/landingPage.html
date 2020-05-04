@@ -27,7 +27,7 @@
   </style>
   <h1>{{ type }}</h1>
     {% if type == 'Login' %}
-    <form action="{% url 'posts:userAuthentication' %}" method = "post">
+    <form action="{% url 'posts:userAuthentication' next %}" method = "post">
       {% csrf_token %}
       {{ logInForm }}
       <input type="submit" value="{{ type }}">
