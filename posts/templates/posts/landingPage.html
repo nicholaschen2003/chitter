@@ -8,6 +8,7 @@
   <style>
     body {
       background-color: lightblue;
+      text-align: center;
     }
     h1 {
       text-align: center;
@@ -27,17 +28,19 @@
   </style>
   <h1>{{ type }}</h1>
     {% if type == 'Login' %}
-    <form action="{% url 'posts:userAuthentication' next %}" method = "post">
-      {% csrf_token %}
-      {{ logInForm }}
-      <input type="submit" value="{{ type }}">
-    </form>
+      <form action="{% url 'posts:userAuthentication' next %}" method = "post">
+        {% csrf_token %}
+        {{ logInForm }}
+        <input type="submit" value="{{ type }}">
+      </form>
+      <a href="{% url 'posts:signup' %}">No account? Sign up here.</a>
     {% else %}
       <form enctype="multipart/form-data" action="{% url 'posts:makeUser' %}" method="post">
         {% csrf_token %}
         {{ signUpForm }}
         <input type="submit" value="{{ type }}">
       </form>
+      <a href="{% url 'posts:signin' %}">Already have an account? Log in here.</a>
     {% endif %}
 </body>
 </html>

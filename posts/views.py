@@ -48,7 +48,7 @@ def userAuthentication(request, next):
     user = authenticate(request, username=request.POST['handle'], password=request.POST['password'])
     if user is not None:
         login(request, user)
-        if next != '':
+        if next != ' ':
             next = next.replace('-', '/')
             return redirect(next)
         else:
@@ -228,20 +228,21 @@ def specificView(request, twitterHandle, post_id):
     possibleReplies.remove(post)
     while postsWithPossibleReplies != []:
         print(counter)
-        print(1,postsWithPossibleReplies)
+        print("Posts with possible replies: ",postsWithPossibleReplies)
         for p in postsWithPossibleReplies:
-            print(2,possibleReplies)
+            print("Possible replies: ",possibleReplies)
             for r in possibleReplies:
                 if r.replying_to == p:
-                    print(3,r)
+                    print("Replying to: ", p)
+                    print("Reply: ", r)
                     tempReplies.append(r)
             if tempReplies != []:
                 tempList.append([p]+tempReplies)
                 postsWithReplies.append([p, counter])
-                print(4,tempReplies)
+                print("List of replies so far: ",tempReplies)
                 checkNext += tempReplies
                 tempReplies = []
-        print(5,checkNext)
+        print("To be checked: ",checkNext)
         postsWithPossibleReplies = checkNext
         checkNext = []
         counter+=1

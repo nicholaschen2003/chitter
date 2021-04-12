@@ -23,6 +23,9 @@
   a.filter:active {
     color: blue;
   }
+  a.home:visited {
+    color: black;
+  }
   a.home:hover {
     color: lightskyblue;
   }
@@ -32,19 +35,29 @@
   }
   table.container {
     width: 100%;
+    border-spacing: 0;
+  }
+  table.post {
+    width: 100%;
     border: 1px solid black;
     margin-bottom: .5vh;
+    border-spacing: 0;
+  }
+  td.post {
+    height: inherit;
+    padding: 0;
   }
   td.pfp {
-    width: 5%;
+    width: 3.5%;
     text-align: center;
     vertical-align: top;
+    height: 14.2vh;
   }
   img.pic {
     width: 100%;
   }
   td.text {
-    width: 95%;
+    width: 96.5%;
   }
   p.postContent {
     width: 100%;
@@ -57,50 +70,60 @@
   {% load static %}
 
   <link rel="stylesheet" type="text/css" href="{% static 'posts/style.css' %}">
-  <a class="home" href="{% url 'posts:allPostView' %}">Home</a>
+  {% if view == 'posterView' %}
+    <a class="home" href="{% url 'posts:posterView' handle %}">Home</a>
+  {% else %}
+    <a class="home" href="{% url 'posts:allPostView' %}">Home</a>
+    <a class="home" href="{% url 'posts:signin' %}">Login</a>
+  {% endif %}
   {% if latest_post_list %}
     {% for post in latest_post_list %}
       {% if not post.replying_to %}
         <a href="{% url 'posts:specificView' post.poster.poster_handle post.id %}">
           <table class="container">
-            <td class="pfp">
-              <img class="pic" src="{{ post.poster.poster_pfp.url }}"></img>
-            </td>
-            <td class="text">
-              {% if user.user.username == request.user.username %}
-                <p class="postContent"><a href="{% url 'posts:posterView' post.poster.poster_handle %}" class="filter">{{ post.poster }} @{{ post.poster.poster_handle }}</a> {{ post.pub_date }}</p>
-              {% else %}
-                <p class="postContent"><a href="{% url 'posts:postView' post.poster.poster_handle %}" class="filter">{{ post.poster }} @{{ post.poster.poster_handle }}</a> {{ post.pub_date }}</p>
-              {% endif %}
-              <p class="postContent">{{ post.post_content|safe }}</p>
+            <td class="post">
+              <table class="post">
+                <td class="pfp">
+                  <img class="pic" src="{{ post.poster.poster_pfp.url }}"></img>
+                </td>
+                <td class="text">
+                  {% if user.user.username == request.user.username %}
+                    <p class="postContent"><a href="{% url 'posts:posterView' post.poster.poster_handle %}" class="filter">{{ post.poster }} @{{ post.poster.poster_handle }}</a> {{ post.pub_date }}</p>
+                  {% else %}
+                    <p class="postContent"><a href="{% url 'posts:postView' post.poster.poster_handle %}" class="filter">{{ post.poster }} @{{ post.poster.poster_handle }}</a> {{ post.pub_date }}</p>
+                  {% endif %}
+                  <p class="postContent">{{ post.post_content|safe }}</p>
 
-              <form action="{% url 'posts:reply' handle post.id %}" method="post" style="display: inline">
-                {% csrf_token %}
-                <input type="submit" value="Reply">
-                <label for="reply">{{ post.replies }}</label>
-              </form>
+                  <form action="{% url 'posts:reply' handle post.id %}" method="post" style="display: inline">
+                    {% csrf_token %}
+                    <input type="submit" value="Reply">
+                    <label for="reply">{{ post.replies }}</label>
+                  </form>
 
-              <form action="{% url 'posts:retweet' handle post.id %}" method="post" style="display: inline">
-                {% csrf_token %}
-                <input type="submit" value="Retweet">
-                <label for="retweet">{{ post.retweets }}</label>
-              </form>
+                  <form action="{% url 'posts:retweet' handle post.id %}" method="post" style="display: inline">
+                    {% csrf_token %}
+                    <input type="submit" value="Retweet">
+                    <label for="retweet">{{ post.retweets }}</label>
+                  </form>
 
-              <form action="{% url 'posts:like' handle post.id 'postView' %}" method="post" style="display: inline">
-                {% csrf_token %}
-                {% if post.id in liked_posts and user.poster_handle == request.user.username %}
-                  <input type="submit" value="Like" style="color: lightcoral">
-                  <label for="like" style="color: lightcoral">{{ post.likes }}</label>
-                {% else %}
-                  <input type="submit" value="Like">
-                  <label for="like" value="Like">{{ post.likes }}</label>
-                {% endif %}
-              </form>
+                  <form action="{% url 'posts:like' handle post.id 'postView' %}" method="post" style="display: inline">
+                    {% csrf_token %}
+                    {% if post.id in liked_posts and user.poster_handle == request.user.username %}
+                      <input type="submit" value="Like" style="color: lightcoral">
+                      <label for="like" style="color: lightcoral">{{ post.likes }}</label>
+                    {% else %}
+                      <input type="submit" value="Like">
+                      <label for="like" value="Like">{{ post.likes }}</label>
+                    {% endif %}
+                  </form>
+                </td>
+              </table>
             </td>
           </table>
         </a>
       {% endif %}
     {% endfor %}
+
   {% else %}
     {% if handle != 'all' %}
       <p>No posts are available for the handle @{{ handle }}.</p>
