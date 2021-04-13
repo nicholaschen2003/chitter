@@ -106,7 +106,7 @@
                     <label for="retweet">{{ post.retweets }}</label>
                   </form>
 
-                  <form action="{% url 'posts:like' handle post.id 'postView' %}" method="post" style="display: inline">
+                  <form action="{% url 'posts:like' handle post.id post.id 'postView' %}" method="post" style="display: inline">
                     {% csrf_token %}
                     {% if post.id in liked_posts and user.poster_handle == request.user.username %}
                       <input type="submit" value="Like" style="color: lightcoral">

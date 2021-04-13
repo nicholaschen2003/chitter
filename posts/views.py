@@ -274,7 +274,7 @@ def specificView(request, twitterHandle, post_id):
     return render(request, 'posts/specificView.html', context)
 
 @login_required
-def like(request, twitterHandle, post_id, currentPage):
+def like(request, twitterHandle, post_id, basePost_id, currentPage):
     """
         Currently, pressing 'Reply' 'Retweet' or 'Like' just increments the counter, but will change later.
         This is the page that processes these inputs.
@@ -307,7 +307,7 @@ def like(request, twitterHandle, post_id, currentPage):
     user.save()
     if twitterHandle != "all":
         if currentPage == "specificView":
-            return HttpResponseRedirect(reverse('posts:specificView', args=[twitterHandle, post_id]))
+            return HttpResponseRedirect(reverse('posts:specificView', args=[twitterHandle, basePost_id]))
         else:
             if Poster.objects.get(poster_handle=twitterHandle).user.username == user.user.username:
                 return HttpResponseRedirect(reverse('posts:posterView', args=[twitterHandle]))
