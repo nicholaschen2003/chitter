@@ -90,7 +90,7 @@
         <a href="{% url 'posts:specificView' p.poster.poster_handle p.id %}">
           <table class="post">
             <td class="pfp">
-              <img class="pic" src="{{ post.poster.poster_pfp.url }}"></img>
+              <img class="pic" src="{{ p.poster.poster_pfp.url }}"></img>
             </td>
             <td class="text">
               {% if user.user.username == request.user.username %}
