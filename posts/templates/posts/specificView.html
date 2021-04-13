@@ -94,9 +94,9 @@
             </td>
             <td class="text">
               {% if user.user.username == request.user.username %}
-                <p class="postContent"><a href="{% url 'posts:posterView' p.poster.poster_handle %}" class="filter">{{ p.poster }} @{{ p.poster.poster_handle }}</a> {{ post.pub_date }}</p>
+                <p class="postContent"><a href="{% url 'posts:posterView' p.poster.poster_handle %}" class="filter">{{ p.poster }} @{{ p.poster.poster_handle }}</a> {{ p.pub_date }}</p>
               {% else %}
-                <p class="postContent"><a href="{% url 'posts:postView' p.poster.poster_handle %}" class="filter">{{ p.poster }} @{{ p.poster.poster_handle }}</a> {{ post.pub_date }}</p>
+                <p class="postContent"><a href="{% url 'posts:postView' p.poster.poster_handle %}" class="filter">{{ p.poster }} @{{ p.poster.poster_handle }}</a> {{ p.pub_date }}</p>
               {% endif %}
               <p class="postContent">{{ p.post_content|safe }}</p>
 
@@ -114,7 +114,7 @@
 
               <form action="{% url 'posts:like' handle p.id 'specificView' %}" method="post" style="display: inline">
                 {% csrf_token %}
-                {% if post.id in liked_posts and user.user.username == request.user.username %}
+                {% if p.id in liked_posts and user.user.username == request.user.username %}
                   <input type="submit" value="Like" style="color: lightcoral">
                   <label for="like" style="color: lightcoral">{{ p.likes }}</label>
                 {% else %}
