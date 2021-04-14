@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Poster(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     poster_name = models.CharField(max_length=200, default=None)
     poster_handle = models.CharField(max_length=200, default=None)
     poster_pfp = models.ImageField(default=None)

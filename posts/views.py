@@ -386,7 +386,7 @@ def makeReply(request, twitterHandle, post_id):
     reply = Poster.objects.get(poster_handle=request.user.username).post_set.create(post_content=request.POST['postContent'], replying_to=post, pub_date=timezone.now())
     post.replies += 1
     post.save()
-    return HttpResponseRedirect(reverse('posts:posterView', args=[twitterHandle]))
+    return HttpResponseRedirect(reverse('posts:specificView', args=[twitterHandle, post_id]))
 
 @login_required
 def logOut(request):
