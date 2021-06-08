@@ -78,9 +78,9 @@
           {% if p.replying_to == i.0 %}
             {% with ''|center:i.1 as range %}
               {% for _ in range %}
-              <td class="indent">
-                <img class="indent" src="{% static "posts/images/verticalBar.png" %}" alt="My image">
-              </td>
+                <td class="indent">
+                  <img class="indent" src="{% static "posts/images/verticalBar.png" %}" alt="My image">
+                </td>
               {% endfor %}
             {% endwith %}
           {% endif %}
